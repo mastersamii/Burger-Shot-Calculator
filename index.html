@@ -956,7 +956,7 @@
       selectTab(b.getAttribute('data-tab'));
     }));
 
-    // ---------- Combo wizard (drinks for combos) ----------
+    // ---------- Combo wizard (drinks + shakes, $50 upcharge per shake) ----------
 
     const comboModal   = document.getElementById('comboModal');
     const comboTitle   = document.getElementById('comboTitle');
@@ -970,7 +970,8 @@
     function openComboWizard(item, qty){
       const usedTotal = (counts) => Object.values(counts).reduce((a,b)=>a+b,0);
       const drinksNeeded = item.drinksIncluded || 0;
-      const pool = getMealDrinkPool();
+      const drinkPool = MENU.drinks;
+      const shakePool = MENU.shakes;
       const counts = {};
       let confirmMode=false;
 
@@ -981,24 +982,45 @@
         comboSteps.innerHTML = confirmMode
           ? '1. Drinks · <strong>2. Confirm</strong>'
           : '<strong>1. Drinks</strong> · 2. Confirm';
+
         comboContent.innerHTML = `
+          <div class="small muted" style="margin-bottom:8px;">
+            Pick any mix of sodas and shakes. Each shake adds $50 per combo.
+          </div>
+          <h4 class="small" style="margin:0 0 4px;">🥤 Drinks</h4>
           <div class="selector-grid">
-            ${pool.map(p=>`
+            ${drinkPool.map(p=>`
               <div class="select-card" data-id="${p.id}">
                 <div class="select-title">${p.name}</div>
-                <div class="toolrow" style="gap:6px; margin-top:4px;">
-                  <button class="btn" data-max="${p.id}">Max</button>
-                  <button class="btn" data-half="${p.id}">Half</button>
-                </div>
                 <div class="select-qty">
                   <button data-minus="${p.id}">−</button>
                   <output data-out="${p.id}">${counts[p.id]||0}</output>
                   <button data-plus="${p.id}">+</button>
                 </div>
+                <div class="toolrow" style="gap:6px;margin-top:6px;">
+                  <button class="btn" data-half="${p.id}">Half</button>
+                  <button class="btn" data-max="${p.id}">Max</button>
+                </div>
+              </div>`).join('')}
+          </div>
+          <h4 class="small" style="margin:12px 0 4px;">🥤 Shakes (+$50 each)</h4>
+          <div class="selector-grid">
+            ${shakePool.map(p=>`
+              <div class="select-card" data-id="${p.id}">
+                <div class="select-title">${p.name} (+$50)</div>
+                <div class="select-qty">
+                  <button data-minus="${p.id}">−</button>
+                  <output data-out="${p.id}">${counts[p.id]||0}</output>
+                  <button data-plus="${p.id}">+</button>
+                </div>
+                <div class="toolrow" style="gap:6px;margin-top:6px;">
+                  <button class="btn" data-half="${p.id}">Half</button>
+                  <button class="btn" data-max="${p.id}">Max</button>
+                </div>
               </div>`).join('')}
           </div>`;
 
-        // + / - buttons
+        // Plus buttons
         comboContent.querySelectorAll('[data-plus]').forEach(btn=>{
           btn.addEventListener('click',()=>{
             const id = btn.getAttribute('data-plus');
@@ -1008,6 +1030,8 @@
             }
           });
         });
+
+        // Minus buttons
         comboContent.querySelectorAll('[data-minus]').forEach(btn=>{
           btn.addEventListener('click',()=>{
             const id = btn.getAttribute('data-minus');
@@ -1022,9 +1046,8 @@
             const id = btn.getAttribute('data-half');
             const current = counts[id]||0;
             const usedWithout = usedTotal(counts) - current;
-            const remainingForAll = Math.max(0, drinksNeeded - usedWithout);
-            const targetHalf = Math.floor(drinksNeeded/2);
-            const target = Math.min(targetHalf, remainingForAll);
+            const remainingForThis = Math.max(0, drinksNeeded - usedWithout);
+            const target = Math.min(Math.ceil(drinksNeeded/2), remainingForThis);
             counts[id] = target;
             renderGrid();
           });
@@ -1082,11 +1105,18 @@
           .map(([id,c])=>`${fmt(id)} x${c}`);
         const meta=drinkParts.length?`Drinks: ${drinkParts.join(', ')}`:'';
 
+        // Shake upcharge: $50 per shake per combo unit
+        const shakeIds = MENU.shakes.map(s=>s.id);
+        const shakeCount = Object.entries(counts)
+          .filter(([id,c])=>shakeIds.includes(id) && c>0)
+          .reduce((sum,[,c])=>sum + c, 0);
+        const upcharge = 50 * shakeCount;
+
         // Main combo line
         addToCart({
           id:item.id,
-          name:item.name,
-          unitPrice:item.price,
+          name:item.name + (upcharge>0?` (+$${upcharge} shakes)`:''),
+          unitPrice:item.price + upcharge,
           qty:qty||1,
           type:item.type,
           drinks:counts,
