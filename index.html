@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Burger Shot Order Calculator</title>
-  <!-- Favicon (swap to your Burger Shot icon if you have one) -->
-  <link rel="icon" type="image/png" href="https://i.ibb.co/vxBK9r5R/BM.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/TNstx6j/BS.png">
+  <link rel="apple-touch-icon" href="https://i.ibb.co/TNstx6j/BS.png">
   <meta name="theme-color" content="#0b2e70">
   <style>
     :root {
@@ -469,7 +470,7 @@
       combos: [
         {
           id:'cb-nuglife',
-          name:'Nug Life',
+          name:'🍗🍟 Nug Life',
           price:250,
           type:'combo',
           drinksIncluded:4,
@@ -478,7 +479,7 @@
         },
         {
           id:'cb-plainjane',
-          name:'Plain Jane',
+          name:'🍔🍟 Plain Jane',
           price:200,
           type:'combo',
           drinksIncluded:4,
@@ -487,7 +488,7 @@
         },
         {
           id:'cb-meltdown',
-          name:'The Meltdown',
+          name:'🧀🍔 The Meltdown',
           price:250,
           type:'combo',
           drinksIncluded:4,
@@ -496,7 +497,7 @@
         },
         {
           id:'cb-porker',
-          name:'The Porker',
+          name:'🥓🍔 The Porker',
           price:350,
           type:'combo',
           drinksIncluded:4,
@@ -505,7 +506,7 @@
         },
         {
           id:'cb-brawler',
-          name:`The Breakfast Brawler`,
+          name:'🍳🥓 The Breakfast Brawler',
           price:450,
           type:'combo',
           drinksIncluded:4,
@@ -514,56 +515,55 @@
         },
         {
           id:'cb-gobbler',
-          name:'Garden Gobbler',
+          name:'🥬🍔 Garden Gobbler',
           price:200,
           type:'combo',
           drinksIncluded:4,
           includedEntrees:{ 'en-veggie':2, 'en-fries':2 },
           description:'2x Veggie Burgers • 2x Fries • 4 Drinks of choice'
         },
-        // Adult Toy combo: handled in practice as meal + Adult Toy + manual discount,
-        // so no special logic here to avoid over-complicating.
+        // Adult Toy combo = meal + Adult Toy line + manual discount if needed
       ],
 
       entrees: [
-        { id:'en-nuggets',    name:'Chicken Nuggets',           price:60,  type:'entree' },
-        { id:'en-ham',        name:'Hamburger',                 price:60,  type:'entree' },
-        { id:'en-cheese',     name:'Cheeseburger',              price:100, type:'entree' },
-        { id:'en-bacon',      name:'Bacon Cheeseburger',        price:120, type:'entree' },
-        { id:'en-breakfast',  name:`Bacon n' Egg Cheeseburger`, price:140, type:'entree' },
-        { id:'en-veggie',     name:'Veggie Burger',             price:60,  type:'entree' },
-        { id:'en-fries',      name:'Fries',                     price:60,  type:'entree' },
+        { id:'en-nuggets',    name:'🍗 Chicken Nuggets',           price:60,  type:'entree' },
+        { id:'en-ham',        name:'🍔 Hamburger',                 price:60,  type:'entree' },
+        { id:'en-cheese',     name:'🧀🍔 Cheeseburger',            price:100, type:'entree' },
+        { id:'en-bacon',      name:'🥓🍔 Bacon Cheeseburger',      price:120, type:'entree' },
+        { id:'en-breakfast',  name:`🍳🥓🍔 Bacon n' Egg Cheeseburger`, price:140, type:'entree' },
+        { id:'en-veggie',     name:'🥬🍔 Veggie Burger',           price:60,  type:'entree' },
+        { id:'en-fries',      name:'🍟 Fries',                     price:60,  type:'entree' },
       ],
 
       drinks: [
-        { id:'dr-water',      name:'Water',        price:50, type:'drink' },
-        { id:'dr-koka',       name:'Koka',         price:50, type:'drink' },
-        { id:'dr-frezzi',     name:'Frezzi',       price:50, type:'drink' },
-        { id:'dr-sprunk',     name:'Sprunk',       price:50, type:'drink' },
-        { id:'dr-tanga',      name:'Tanga',        price:50, type:'drink' },
-        { id:'dr-greenapple', name:'Green Apple',  price:50, type:'drink' },
+        { id:'dr-water',      name:'💧 Water',        price:50, type:'drink' },
+        { id:'dr-koka',       name:'🥤 Koka',         price:50, type:'drink' },
+        { id:'dr-frezzi',     name:'❄️🥤 Frezzi',     price:50, type:'drink' },
+        { id:'dr-sprunk',     name:'⚡🥤 Sprunk',     price:50, type:'drink' },
+        { id:'dr-tanga',      name:'🍊🥤 Tanga',      price:50, type:'drink' },
+        { id:'dr-greenapple', name:'🍏🥤 Green Apple',price:50, type:'drink' },
       ],
 
       shakes: [
-        { id:'shk-vanilla', name:'Vanilla Shake',  price:100, type:'shake' },
-        { id:'shk-choc',    name:'Chocolate Shake',price:100, type:'shake' },
-        { id:'shk-avo',     name:'Avocado Shake',  price:100, type:'shake' },
-        { id:'shk-banana',  name:'Banana Shake',   price:100, type:'shake' },
+        { id:'shk-vanilla', name:'🍦🥤 Vanilla Shake',   price:100, type:'shake' },
+        { id:'shk-choc',    name:'🍫🥤 Chocolate Shake', price:100, type:'shake' },
+        { id:'shk-avo',     name:'🥑🥤 Avocado Shake',   price:100, type:'shake' },
+        { id:'shk-banana',  name:'🍌🥤 Banana Shake',    price:100, type:'shake' },
       ],
 
       iceCream: [
-        { id:'ic-vanilla',    name:'Vanilla Ice Cream',     price:100, type:'ice' },
-        { id:'ic-choc',       name:'Chocolate Ice Cream',   price:100, type:'ice' },
-        { id:'ic-apple',      name:'Apple Ice Cream',       price:100, type:'ice' },
-        { id:'ic-banana',     name:'Banana Ice Cream',      price:100, type:'ice' },
-        { id:'ic-lemon',      name:'Lemon Ice Cream',       price:100, type:'ice' },
-        { id:'ic-mango',      name:'Mango Ice Cream',       price:100, type:'ice' },
-        { id:'ic-pomegranate',name:'Pomegranate Ice Cream', price:100, type:'ice' },
-        { id:'ic-watermelon', name:'Watermelon Ice Cream',  price:100, type:'ice' },
+        { id:'ic-vanilla',     name:'🍦 Vanilla Ice Cream',        price:100, type:'ice' },
+        { id:'ic-choc',        name:'🍫🍦 Chocolate Ice Cream',    price:100, type:'ice' },
+        { id:'ic-apple',       name:'🍏🍦 Apple Ice Cream',        price:100, type:'ice' },
+        { id:'ic-banana',      name:'🍌🍦 Banana Ice Cream',       price:100, type:'ice' },
+        { id:'ic-lemon',       name:'🍋🍦 Lemon Ice Cream',        price:100, type:'ice' },
+        { id:'ic-mango',       name:'🥭🍦 Mango Ice Cream',        price:100, type:'ice' },
+        { id:'ic-pomegranate', name:'❤️🍦 Pomegranate Ice Cream',  price:100, type:'ice' },
+        { id:'ic-watermelon',  name:'🍉🍦 Watermelon Ice Cream',   price:100, type:'ice' },
       ],
 
       extras: [
-        { id:'ex-toy', name:'Adult Toy', price:1000, type:'extra' },
+        { id:'ex-toy', name:'🎁 Adult Toy', price:1000, type:'extra' },
       ],
 
       specialty:[], deals:[], packs:[]
@@ -600,7 +600,7 @@
       'ic-watermelon': {'Ice Cream Cone':1,'Milk':1,'Watermelon':1},
 
       // Shakes (2 Milk + 3 flavour, except Avocado special)
-      'shk-vanilla': {'Milk':2},                            // flavour handled at bench
+      'shk-vanilla': {'Milk':2},
       'shk-choc':    {'Milk':2,'Cocoa Powder':3},
       'shk-avo':     {'Avocado':2},
       'shk-banana':  {'Milk':2,'Banana':3},
@@ -986,6 +986,10 @@
             ${pool.map(p=>`
               <div class="select-card" data-id="${p.id}">
                 <div class="select-title">${p.name}</div>
+                <div class="toolrow" style="gap:6px; margin-top:4px;">
+                  <button class="btn" data-max="${p.id}">Max</button>
+                  <button class="btn" data-half="${p.id}">Half</button>
+                </div>
                 <div class="select-qty">
                   <button data-minus="${p.id}">−</button>
                   <output data-out="${p.id}">${counts[p.id]||0}</output>
@@ -994,6 +998,7 @@
               </div>`).join('')}
           </div>`;
 
+        // + / - buttons
         comboContent.querySelectorAll('[data-plus]').forEach(btn=>{
           btn.addEventListener('click',()=>{
             const id = btn.getAttribute('data-plus');
@@ -1007,6 +1012,32 @@
           btn.addEventListener('click',()=>{
             const id = btn.getAttribute('data-minus');
             counts[id] = Math.max(0, (counts[id]||0) - 1);
+            renderGrid();
+          });
+        });
+
+        // Half buttons
+        comboContent.querySelectorAll('[data-half]').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const id = btn.getAttribute('data-half');
+            const current = counts[id]||0;
+            const usedWithout = usedTotal(counts) - current;
+            const remainingForAll = Math.max(0, drinksNeeded - usedWithout);
+            const targetHalf = Math.floor(drinksNeeded/2);
+            const target = Math.min(targetHalf, remainingForAll);
+            counts[id] = target;
+            renderGrid();
+          });
+        });
+
+        // Max buttons
+        comboContent.querySelectorAll('[data-max]').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const id = btn.getAttribute('data-max');
+            const current = counts[id]||0;
+            const usedWithout = usedTotal(counts) - current;
+            const remainingForThis = Math.max(0, drinksNeeded - usedWithout);
+            counts[id] = remainingForThis;
             renderGrid();
           });
         });
